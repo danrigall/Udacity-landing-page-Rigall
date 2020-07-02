@@ -18,10 +18,8 @@
  *
 */
 const sections = document.querySelectorAll("section");
-console.log(sections);
 
 const navbarList = document.getElementById('navbar__list');
-console.log(navbarList);
 /**
  * End Global Variables
  * Start Helper Functions
@@ -34,7 +32,6 @@ function isInView(elem) {
   }
 }
 
-
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -43,24 +40,30 @@ function isInView(elem) {
 
 // build the nav
 function navBuild() {
-  for (let i = 0; i < sections.length; i++) {
-    const newListItem = document.createElement('li');
-    const sectionData = sections[i].dataset.nav;
-    const sectionID = sections[i].id;
-
-    newListItem.innerHTML = "<a href=\"#" + sectionID + "\">" + sectionData + "</a>";
-    newListItem.firstElementChild.classList.add('menu__link');
-    navbarList.appendChild(newListItem);
+  const startingTime = performance.now();
+  for (let section of sections) {
+    navbarList.appendChild(listItemBuild(section));
   }
+  const endingTime = performance.now();
+  console.log('This code took ' + (endingTime - startingTime) + ' milliseconds.');
+}
+
+function listItemBuild(section) {
+  const newListItem = document.createElement('li');
+  const sectionDatNav = section.dataset.nav;
+  const sectionID = section.id;
+
+  newListItem.innerHTML = `<a href="#${sectionID}" class="menu__link">${sectionDatNav}</a>`;
+  return newListItem;
 }
 
 // Add class 'active' to section when near top of viewport
 function addActive() {
-  for (let i = 0; i < sections.length; i++) {
-    if (isInView(sections[i]) == true) {
-      sections[i].classList.add('your-active-class');
+  for (let section of sections) {
+    if (isInView(section)) {
+      section.classList.add('your-active-class');
     } else {
-      sections[i].classList.remove('your-active-class');
+      section.classList.remove('your-active-class');
     }
   }
 }
