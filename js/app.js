@@ -27,25 +27,9 @@ const navbarList = document.getElementById('navbar__list');
 */
 function isInView(elem) {
   const boundingTop = elem.getBoundingClientRect().top;
-  if (boundingTop >= 0 && boundingTop < 400) {
+  if (boundingTop >= -50 && boundingTop < 700) {
     return true;
   }
-}
-
-/**
- * End Helper Functions
- * Begin Main Functions
- *
-*/
-
-// build the nav
-function navBuild() {
-  const startingTime = performance.now();
-  for (let section of sections) {
-    navbarList.appendChild(listItemBuild(section));
-  }
-  const endingTime = performance.now();
-  console.log('This code took ' + (endingTime - startingTime) + ' milliseconds.');
 }
 
 function listItemBuild(section) {
@@ -57,13 +41,31 @@ function listItemBuild(section) {
   return newListItem;
 }
 
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+*/
+
+// build the nav (takes 0.23ms)
+function navBuild() {
+  console.time("navBuild")
+  for (let section of sections) {
+    navbarList.appendChild(listItemBuild(section));
+  }
+  console.timeEnd("navBuild")
+}
+
 // Add class 'active' to section when near top of viewport
 function addActive() {
   for (let section of sections) {
+    const relAnchor = document.querySelector(`a[href="#${section.id}"]`);
     if (isInView(section)) {
       section.classList.add('your-active-class');
+      relAnchor.classList.add('active__anchor')
     } else {
       section.classList.remove('your-active-class');
+      relAnchor.classList.remove('active__anchor')
     }
   }
 }
