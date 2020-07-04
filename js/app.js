@@ -27,7 +27,7 @@ const navbarList = document.getElementById('navbar__list');
 */
 function isInView(elem) {
   const boundingTop = elem.getBoundingClientRect().top;
-  if (boundingTop >= -50 && boundingTop < 700) {
+  if (boundingTop >= 0 && boundingTop < 750) {
     return true;
   }
 }
@@ -47,7 +47,7 @@ function listItemBuild(section) {
  *
 */
 
-// build the nav (takes 0.23ms)
+// build the nav
 function navBuild() {
   console.time("navBuild")
   for (let section of sections) {
@@ -82,6 +82,19 @@ function anchorScroll(evt) {
   });
 }
 
+// function toggleNav() {
+//   const header = document.querySelector('header');
+//   setTimeout(function something() {
+//     if (pageYOffset < 200) {
+//       header.setAttribute('style', 'top: 0; transition: ease 0.7s all');
+//     } else {
+//       header.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
+//     }
+//   }, 2000)
+//   header.setAttribute('style', 'top: 0; transition: ease 0.7s all');
+//   console.log('the page was scrolled!')
+// }
+
 /**
  * End Main Functions
  * Begin Events
@@ -95,4 +108,16 @@ document.addEventListener('DOMContentLoaded', navBuild);
 navbarList.addEventListener('click', anchorScroll);
 
 // Set sections as active
-document.addEventListener('scroll', addActive);
+setTimeout(document.addEventListener('scroll', addActive), 0);
+
+let timer = null;
+document.addEventListener('scroll', function() {
+  const head = document.querySelector('header');
+  if (timer !== null) {
+    clearTimeout(timer);
+    head.setAttribute('style', 'top: 0; transition: ease 0.7s all');
+  }
+  timer = setTimeout(function() {
+    head.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
+  }, 2000);
+});
