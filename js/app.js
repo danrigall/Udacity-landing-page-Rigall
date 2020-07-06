@@ -27,7 +27,7 @@ const navbarList = document.getElementById('navbar__list');
 */
 function isInView(elem) {
   const boundingTop = elem.getBoundingClientRect().top;
-  if (boundingTop >= 0 && boundingTop < 750) {
+  if (boundingTop >= -50 && boundingTop < 600) {
     return true;
   }
 }
@@ -113,6 +113,7 @@ setTimeout(document.addEventListener('scroll', addActive), 0);
 let timer = null;
 document.addEventListener('scroll', function() {
   const head = document.querySelector('header');
+  //TODO: Make a switch statement including pageYOffset
   if (timer !== null) {
     clearTimeout(timer);
     head.setAttribute('style', 'top: 0; transition: ease 0.7s all');
