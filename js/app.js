@@ -23,7 +23,7 @@ const navbarList = document.getElementById('navbar__list');
 
 const main = document.querySelector('main');
 
-const buttonToTop = document.querySelector('.page__footer button');
+const buttonToTop = document.querySelector('.button__container button');
 
 let timer = null;
 
@@ -33,8 +33,8 @@ let timer = null;
  *
 */
 function isInView(elem) {
-  const boundingTop = elem.getBoundingClientRect().top;
-  if (boundingTop >= -50 && boundingTop < 600) {
+  const bounding = elem.getBoundingClientRect();
+  if (bounding.top < 300 && bounding.bottom > 500) {
     return true;
   }
 }
@@ -92,10 +92,10 @@ function hideNav() {
   const head = document.querySelector('header');
   if (timer !== null) {
     clearTimeout(timer);
-    head.setAttribute('style', 'top: 0; transition: ease 0.7s all');
+    head.setAttribute('style', 'top: 0; transition: ease 0.5s all');
   }
   timer = setTimeout(function () {
-    head.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
+    head.setAttribute('style', 'top: -104px; transition: ease 0.5s all');
   }, 2000);
 }
 
