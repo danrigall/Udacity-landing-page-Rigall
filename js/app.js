@@ -20,6 +20,13 @@
 const sections = document.querySelectorAll("section");
 
 const navbarList = document.getElementById('navbar__list');
+
+const main = document.querySelector('main');
+
+const buttonToTop = document.querySelector('.page__footer button');
+
+let timer = null;
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -36,7 +43,6 @@ function listItemBuild(section) {
   const newListItem = document.createElement('li');
   const sectionDatNav = section.dataset.nav;
   const sectionID = section.id;
-
   newListItem.innerHTML = `<a href="#${sectionID}" class="menu__link">${sectionDatNav}</a>`;
   return newListItem;
 }
@@ -74,7 +80,6 @@ function addActive() {
 function anchorScroll(evt) {
   const destination = document.querySelector(evt.target.hash)
   const top = destination.getBoundingClientRect().top + window.pageYOffset;
-
   evt.preventDefault();
   window.scrollTo({
     top,
@@ -82,18 +87,46 @@ function anchorScroll(evt) {
   });
 }
 
-// function toggleNav() {
-//   const header = document.querySelector('header');
-//   setTimeout(function something() {
-//     if (pageYOffset < 200) {
-//       header.setAttribute('style', 'top: 0; transition: ease 0.7s all');
-//     } else {
-//       header.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
-//     }
-//   }, 2000)
-//   header.setAttribute('style', 'top: 0; transition: ease 0.7s all');
-//   console.log('the page was scrolled!')
-// }
+// Hide navbar when not scrolling using scroll event
+function hideNav() {
+  const head = document.querySelector('header');
+  if (timer !== null) {
+    clearTimeout(timer);
+    head.setAttribute('style', 'top: 0; transition: ease 0.7s all');
+  }
+  timer = setTimeout(function () {
+    head.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
+  }, 2000);
+}
+
+// Functionality for 'Back to Top' button
+function hideTopButton() {
+  if (pageYOffset < 100) {
+    buttonToTop.setAttribute('style', '');
+  } else {
+    buttonToTop.setAttribute('style', 'bottom: 0px;');
+  }
+}
+
+function scrollToTop() {
+  const top = (pageYOffset === 0)
+  window.scrollTo({
+    top,
+    behavior: "smooth"
+  });
+}
+
+// Make sections collapsable using click event
+function collapseSection(evt) {
+  const sectionParent = evt.target.parentElement;
+  if (evt.target.className == 'collapse__button' && sectionParent.clientHeight !== 200) {
+    sectionParent.classList.add('collapsed')
+    evt.target.textContent = 'Expand Section'
+  } else if (evt.target.className == 'collapse__button') {
+    sectionParent.classList.remove('collapsed')
+    evt.target.textContent = 'Collapse Section'
+  }
+}
 
 /**
  * End Main Functions
@@ -110,45 +143,14 @@ navbarList.addEventListener('click', anchorScroll);
 // Set sections as active
 setTimeout(document.addEventListener('scroll', addActive), 0);
 
-let timer = null;
-document.addEventListener('scroll', function() {
-  const head = document.querySelector('header');
-  //TODO: try making a switch statement including pageYOffset
-  if (timer !== null) {
-    clearTimeout(timer);
-    head.setAttribute('style', 'top: 0; transition: ease 0.7s all');
-  }
-  timer = setTimeout(function() {
-    head.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
-  }, 2000);
-});
+// Hide navbar when not scrolling
+document.addEventListener('scroll', hideNav);
 
-const buttonToTop = document.querySelector('.page__footer button')
-document.addEventListener('scroll', function() {
-  if (pageYOffset < 100) {
-    buttonToTop.setAttribute('style', '');
-  } else {
-    buttonToTop.setAttribute('style', 'bottom: 0px;');
-  }
-})
+// Hide 'Back to Top' button
+document.addEventListener('scroll', hideTopButton);
 
-buttonToTop.addEventListener('click', function() {
-  const top = (pageYOffset === 0)
-  window.scrollTo({
-    top,
-    behavior: "smooth"
-  });
-})
+// 'Back to Top' button functionality
+buttonToTop.addEventListener('click', scrollToTop);
 
 // Make sections collapsable
-const main = document.querySelector('main')
-main.addEventListener('click', function(evt) {
-  const sectionParent = evt.target.parentElement;
-  if (evt.target.className == 'collapse__button' && sectionParent.clientHeight !== 200) {
-    sectionParent.classList.add('collapsed')
-    evt.target.textContent = 'Expand Section'
-  } else if (evt.target.className == 'collapse__button') {
-    sectionParent.classList.remove('collapsed')
-    evt.target.textContent = 'Collapse Section'
-  }
-})
+main.addEventListener('click', collapseSection);
