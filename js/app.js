@@ -113,7 +113,7 @@ setTimeout(document.addEventListener('scroll', addActive), 0);
 let timer = null;
 document.addEventListener('scroll', function() {
   const head = document.querySelector('header');
-  //TODO: Make a switch statement including pageYOffset
+  //TODO: try making a switch statement including pageYOffset
   if (timer !== null) {
     clearTimeout(timer);
     head.setAttribute('style', 'top: 0; transition: ease 0.7s all');
@@ -122,3 +122,33 @@ document.addEventListener('scroll', function() {
     head.setAttribute('style', 'top: -52px; transition: ease 0.7s all');
   }, 2000);
 });
+
+const buttonToTop = document.querySelector('.page__footer button')
+document.addEventListener('scroll', function() {
+  if (pageYOffset < 100) {
+    buttonToTop.setAttribute('style', '');
+  } else {
+    buttonToTop.setAttribute('style', 'bottom: 0px;');
+  }
+})
+
+buttonToTop.addEventListener('click', function() {
+  const top = (pageYOffset === 0)
+  window.scrollTo({
+    top,
+    behavior: "smooth"
+  });
+})
+
+// Make sections collapsable
+const main = document.querySelector('main')
+main.addEventListener('click', function(evt) {
+  const sectionParent = evt.target.parentElement;
+  if (evt.target.className == 'collapse__button' && sectionParent.clientHeight !== 200) {
+    sectionParent.classList.add('collapsed')
+    evt.target.textContent = 'Expand Section'
+  } else if (evt.target.className == 'collapse__button') {
+    sectionParent.classList.remove('collapsed')
+    evt.target.textContent = 'Collapse Section'
+  }
+})

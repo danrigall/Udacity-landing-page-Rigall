@@ -11,8 +11,8 @@
 
 /* ---- Base Rules ---- */
 body {
-    background: rgb(136,203,171);
-    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
+    background: slategray;
+    /* background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%); */
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
@@ -29,7 +29,7 @@ h1 {
 @media only screen and (min-width: 35em){
     h1 {
         font-size: 7em;
-        margin: 2em 4rem 1em;
+        margin: 1em 4rem 1em;
     }
 }
 
@@ -50,16 +50,47 @@ main {
     margin: 10vh 1em 10vh;
 }
 
-.main-hero {
+.main__hero {
     min-height: 40vh;
     padding-top: 3em;
+    color: #182027;
+    text-shadow: whitesmoke 1px 1px 4px;
 }
 
 section {
     position: relative;
     min-height: 80vh;
+    border: 1px solid #2f4f4f26;
+    border-radius: 20px;
+    margin: 30px;
 }
 
+section.collapsed {
+    height: 200px;
+    min-height: initial;
+    overflow: hidden;
+}
+
+.collapse__button {
+    position: absolute;
+    bottom: 4%;
+    right: 4%;
+    border-radius: 5px;
+    border: 1px solid #2f4f4f52;
+    background: slategray;
+    padding: 8px 26px;
+    color: #292929;
+    opacity: 0.8;
+    outline: none;
+}
+
+.collapse__button:hover {
+    background: #515f65;
+    color: whitesmoke;
+    opacity: 1;
+    border: 1px solid lightgray;;
+    transition: ease 0.3s all;
+}
 
 /* ---- Module Rules ---- */
 
@@ -116,12 +147,14 @@ section {
 
 .page__footer button {
     position: fixed;
-    bottom: 0px;
-    transition: ease 0.5s;
+    bottom: -32px;
+    transition: ease 0.3s;
     margin-left: 40%;
     opacity: 0.5;
-    padding: 5px 30px;
+    padding: 6px 20px;
     font-weight: bold;
+    border: none;
+    outline: none;
 }
 
 .page__footer button:hover {
