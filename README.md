@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-* [Student Notes]
+* [Introduction](#introduction)
 * [Javascript](#javascript)
 * [HTML](#html)
 * [CSS](#css)
 
 
-## Student Notes
+## Introduction
 
 This is the 2nd project of 5 in my Udacity "Front End Web Developer" Nanodegree. It focuses primarily on Javascript, highlighting ES6 elements specifically. In order to focus on Javascript, the html & css was given to me mostly complete in the starter files. I made only small, yet significant changes to both html & css.
 
