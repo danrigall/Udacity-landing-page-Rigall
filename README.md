@@ -2,24 +2,15 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Student Notes](#studentNotes)
+* [Student Notes]
 * [Javascript](#javascript)
 * [HTML](#html)
 * [CSS](#css)
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
-
 
 ## Student Notes
 
-I, Dan Rigall, attempted to follow all of the instructions for this project, including both mandatory and suggested guidelines.
+This is the 2nd project of 5 in my Udacity "Front End Web Developer" Nanodegree. It focuses primarily on Javascript, highlighting ES6 elements specifically. In order to focus on Javascript, the html & css was given to me mostly complete in the starter files. I made only small, yet significant changes to both html & css.
 
 
 ## Javascript
